@@ -1,8 +1,5 @@
-
-
 import React, { useEffect, useState, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import { useWeb3 } from '@3rdweb/hooks'
 import { client } from '../../lib/sanityClient'
 import { ThirdwebSDK } from '@3rdweb/sdk'
@@ -42,8 +39,7 @@ const Collection = () => {
   const [nfts, setNfts] = useState([])
   const [listings, setListings] = useState([])
 
-  //
-
+  // connect to ThirdewbSDK
   const nftModule = useMemo(() => {
     if (!provider) return
 
@@ -62,6 +58,7 @@ const Collection = () => {
     })()
   }, [nftModule])
 
+
   const marketPlaceModule = useMemo(() => {
     if (!provider) return
 
@@ -79,6 +76,7 @@ const Collection = () => {
     })()
   }, [marketPlaceModule])
 
+  // fetch data from sanity databse
   const fetchCollectionData = async (sanityClient = client) => {
     const query = `*[_type == "marketItems" && contractAddress == "${collectionId}" ] {
       "imageUrl": profileImage.asset->url,
